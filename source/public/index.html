@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/index.js" defer></script>
+</head>
+<body>
+<div class="content-wrapper">
+    <div id="notes-list-view">
+        <div class="notes-navigation">
+            <nav class="navbar">
+                <button id="add-todo-btn" class="action-btn">Create new todo</button>
+                <button id="toggle-mode-btn" class="action-btn align-right">Toggle Style</button>
+            </nav>
+            <nav id="toolbar-container" class="toolbar">
+                <button class="sort-btn">Name</button>
+                <button class="sort-btn">By Due Date</button>
+                <button class="sort-btn">By Creation Date</button>
+                <button class="sort-btn">By Importance</button>
+                <button class="sort-btn">Filter Completed</button>
+            </nav>
+        </div>
+        <main id="notes-list" class="notes-list">
+            <div class="todo-item">
+                <div class="todo-item-header">
+                    <div class="todo-date">in a day</div>
+                    <div class="todo-name">Geburi von Sarah</div>
+                    <div class="todo-importance">*****</div>
+                    <button class="edit-btn">Edit</button>
+                </div>
+                <div class="todo-item-footer">
+                    <input type="checkbox" id="todo-open"> <label for="todo-open">Open</label>
+                </div>
+            </div>
+            <div class="todo-item completed">
+                <div class="todo-item-header">
+                    <div class="todo-date">in 7 days</div>
+                    <div class="todo-name">Ferien</div>
+                    <div class="todo-importance">***</div>
+                    <button class="edit-btn">Edit</button>
+                </div>
+                <div class="todo-item-footer">
+                    <input type="checkbox" id="todo-completed-1" checked>
+                    <label for="todo-completed-1">Completed</label>
+                </div>
+            </div>
+            <div class="todo-item completed">
+                <div class="todo-item-header">
+                    <div class="todo-date">a day ago</div>
+                    <div class="todo-name">Einkaufen</div>
+                    <div class="todo-importance">*</div>
+                    <button class="edit-btn">Edit</button>
+                </div>
+                <div class="todo-item-footer">
+                    <input type="checkbox" id="todo-completed-2" checked>
+                    <label for="todo-completed-2">Completed</label>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="todo-form-view" class="hidden">
+        <div class="todo-form">
+            <form id="todo-form">
+                <label for="todo-name">Name</label>
+                <input type="text" id="todo-name" name="todo-name">
+                <label for="todo-importance">Importance</label>
+                <input type="number" id="todo-importance" name="todo-importance" min="1" max="5">
+                <label for="todo-due-date">Due Date</label>
+                <input type="date" id="todo-due-date" name="todo-due-date">
+                <label for="todo-finished">Finished</label>
+                <input type="checkbox" id="todo-finished" name="todo-finished">
+                <label for="todo-description">Description</label>
+                <textarea id="todo-description" name="todo-description"></textarea>
+            </form>
+            <nav class="flex">
+                <button id="save-todo-btn" class="blue-button">Update</button>
+                <button id="update-overview-btn" class="blue-button">Update & Overview</button>
+                <button id="overview-todo-btn" class="blue-button">Overview</button>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>
