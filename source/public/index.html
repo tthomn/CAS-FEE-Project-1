@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
     <link rel="stylesheet" href="styles/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"
+            integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
     <script src="scripts/index.js" defer></script>
 </head>
 <body>
@@ -23,62 +27,44 @@
                 <button class="sort-btn">Filter Completed</button>
             </nav>
         </div>
-        <main id="notes-list" class="notes-list">
-            <div class="todo-item">
-                <div class="todo-item-header">
-                    <div class="todo-date">in a day</div>
-                    <div class="todo-name">Geburi von Sarah</div>
-                    <div class="todo-importance">*****</div>
-                    <button class="edit-btn">Edit</button>
+        <main id="todo-list" class="todo-list" data-list>
+            <!-- Template for tasks -->
+            <script id="todo-template" type="text/x-handlebars-template">
+                <div class="todo-item {{#if finished}}completed{{/if}}">
+                    <div class="todo-item-header">
+                        <div class="todo-date">{{duedate.text}}</div>
+                        <div class="todo-title">{{title}}</div>
+                        <div class="todo-importance">{{importance}}</div>
+                        <button id="{{id}}" class="edit-btn" data-list-btn-edit>Edit</button>
+                    </div>
+                    <div class="todo-item-footer">
+                        <label><input id="{{id}}" type="checkbox" data-list-btn-finish {{#if finished}}checked{{/if}} />{{#if finished}}Completed{{else}}Open{{/if}}</label>
+                    </div>
+                    <div class="todo-description">
+                        <textarea readonly rows="4">{{description}}</textarea>
+                    </div>
                 </div>
-                <div class="todo-item-footer">
-                    <input type="checkbox" id="todo-open"> <label for="todo-open">Open</label>
-                </div>
-            </div>
-            <div class="todo-item completed">
-                <div class="todo-item-header">
-                    <div class="todo-date">in 7 days</div>
-                    <div class="todo-name">Ferien</div>
-                    <div class="todo-importance">***</div>
-                    <button class="edit-btn">Edit</button>
-                </div>
-                <div class="todo-item-footer">
-                    <input type="checkbox" id="todo-completed-1" checked>
-                    <label for="todo-completed-1">Completed</label>
-                </div>
-            </div>
-            <div class="todo-item completed">
-                <div class="todo-item-header">
-                    <div class="todo-date">a day ago</div>
-                    <div class="todo-name">Einkaufen</div>
-                    <div class="todo-importance">*</div>
-                    <button class="edit-btn">Edit</button>
-                </div>
-                <div class="todo-item-footer">
-                    <input type="checkbox" id="todo-completed-2" checked>
-                    <label for="todo-completed-2">Completed</label>
-                </div>
-            </div>
+            </script>
         </main>
     </div>
     <div id="todo-form-view" class="hidden">
         <div class="todo-form">
             <form id="todo-form">
-                <label for="todo-name">Name</label>
-                <input type="text" id="todo-name" name="todo-name">
+                <label for="todo-title">Title</label>
+                <input type="text" id="todo-title" name="title" required minlength="3" maxlength="32">
                 <label for="todo-importance">Importance</label>
-                <input type="number" id="todo-importance" name="todo-importance" min="1" max="5">
+                <input type="range" id="todo-importance" name="importance" min="1" max="5" value="3">
                 <label for="todo-due-date">Due Date</label>
-                <input type="date" id="todo-due-date" name="todo-due-date">
+                <input type="date" id="todo-due-date" name="todo-due-date" required>
                 <label for="todo-finished">Finished</label>
-                <input type="checkbox" id="todo-finished" name="todo-finished">
+                <input type="checkbox" id="todo-finished" name="finished">
                 <label for="todo-description">Description</label>
-                <textarea id="todo-description" name="todo-description"></textarea>
+                <textarea placeholder="Describe your task" id="todo-description" name="description" rows="4" required maxlength="1024"></textarea>
             </form>
             <nav class="flex">
-                <button id="save-todo-btn" class="blue-button">Update</button>
-                <button id="update-overview-btn" class="blue-button">Update & Overview</button>
-                <button id="overview-todo-btn" class="blue-button">Overview</button>
+                <button id="save-todo-btn" class="button">Save</button>
+                <button id="update-overview-btn" class="button">Update & Overview</button>
+                <button id="overview-todo-btn" class="button">Overview</button>
             </nav>
         </div>
     </div>
