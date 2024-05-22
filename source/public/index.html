@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
     <link rel="stylesheet" href="styles/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"
-            integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU="
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+            integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"></script>
-    <script src="scripts/index.js" defer></script>
+    <script type="module" src="scripts/index.js" defer></script>
 </head>
 <body>
 <div class="content-wrapper">
@@ -53,7 +53,8 @@
                 <label for="todo-title">Title</label>
                 <input type="text" id="todo-title" name="title" required minlength="3" maxlength="32">
                 <label for="todo-importance">Importance</label>
-                <input type="range" id="todo-importance" name="importance" min="1" max="5" value="3">
+                <input type="number" id="todo-importance" name="importance" min="1" max="5" value="3" required>
+                <small id="importance-error" class="error hidden">Value must be less than or equal to 5.</small>
                 <label for="todo-due-date">Due Date</label>
                 <input type="date" id="todo-due-date" name="todo-due-date" required>
                 <label for="todo-finished">Finished</label>
