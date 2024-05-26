@@ -9,7 +9,7 @@
             integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"></script>
-    <script type="module" src="scripts/index.js" defer></script>
+    <script type="module" src="scripts/main.js" defer></script>
 </head>
 <body>
 <div class="content-wrapper">
@@ -32,13 +32,16 @@
             <script id="todo-template" type="text/x-handlebars-template">
                 <div class="todo-item {{#if finished}}completed{{/if}}">
                     <div class="todo-item-header">
-                        <div class="todo-date">{{duedate.text}}</div>
+                        <div class="todo-date">{{relativeDate duedate.text}}</div>
                         <div class="todo-title">{{title}}</div>
                         <div class="todo-importance">{{importance}}</div>
                         <button id="{{id}}" class="edit-btn" data-list-btn-edit>Edit</button>
                     </div>
                     <div class="todo-item-footer">
-                        <label><input id="{{id}}" type="checkbox" data-list-btn-finish {{#if finished}}checked{{/if}} />{{#if finished}}Completed{{else}}Open{{/if}}</label>
+                        <label class="todo-status {{#if finished}}completed-label{{else}}open-label{{/if}}">
+                            <input id="{{id}}" type="checkbox" disabled {{#if finished}}checked{{/if}} />
+                            {{#if finished}}Completed{{else}}Open{{/if}}
+                        </label>
                     </div>
                     <div class="todo-description">
                         <textarea readonly rows="4">{{description}}</textarea>
@@ -54,17 +57,19 @@
                 <input type="text" id="todo-title" name="title" required minlength="3" maxlength="32">
                 <label for="todo-importance">Importance</label>
                 <input type="number" id="todo-importance" name="importance" min="1" max="5" value="3" required>
-                <small id="importance-error" class="error hidden">Value must be less than or equal to 5.</small>
+                <div id="importance-error" class="tooltip hidden"></div>
                 <label for="todo-due-date">Due Date</label>
                 <input type="date" id="todo-due-date" name="todo-due-date" required>
-                <label for="todo-finished">Finished</label>
-                <input type="checkbox" id="todo-finished" name="finished">
+                <div class="form-group todo-status-group">
+                    <label for="todo-finished">Finished</label>
+                    <input type="checkbox" id="todo-finished" name="finished">
+                </div>
                 <label for="todo-description">Description</label>
                 <textarea placeholder="Describe your task" id="todo-description" name="description" rows="4" required maxlength="1024"></textarea>
             </form>
             <nav class="flex">
                 <button id="save-todo-btn" class="button">Save</button>
-                <button id="update-overview-btn" class="button">Update & Overview</button>
+                <button id="update-overview-btn" class="button hidden">Update</button>
                 <button id="overview-todo-btn" class="button">Overview</button>
             </nav>
         </div>
