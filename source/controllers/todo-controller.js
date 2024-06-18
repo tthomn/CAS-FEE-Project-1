@@ -11,8 +11,8 @@ export class TodoController {
     }
 
     async createTodo(req, res) {
-        const { duedate, title, description, importance, finished } = req.body;
-        const newTodo = await todoStore.add(duedate, title, description, importance, finished);
+        const { dueDate, title, description, importance, finished } = req.body;
+        const newTodo = await todoStore.add(dueDate, title, description, importance, finished);
         res.json(newTodo);
     }
 
@@ -23,19 +23,21 @@ export class TodoController {
         }
         res.json({ message: 'Todo successfully deleted', _id: req.params.id });
     }
-
     async updateTodo(req, res) {
-        const updatedTodo = await todoStore.update(req.params.id, req.body);
-        res.json(updatedTodo);
+        const existingTodo = await todoStore.get(req.params.id);
+        if (!existingTodo) {
+            return res.status(404).json({ message: 'Todo not found' });
+        }
+
+        const updatedTodo = {
+            ...existingTodo,
+            ...req.body,
+            createdDate: existingTodo.createdDate
+        };
+
+        const result = await todoStore.update(req.params.id, updatedTodo);
+        res.json(result);
     }
 }
 
 export const todoController = new TodoController();
-
-
-
-
-
-
-
-

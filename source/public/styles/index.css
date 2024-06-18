@@ -93,19 +93,62 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.todo-title-description {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 20px;
+    padding-top: 20px;
+    margin-left: 120px;
+}
+
+.todo-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.todo-description {
+    color: #000;
+    margin-left: 0;
+}
+
+.todo-date-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.todo-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100px;
+    margin-left: -10px;
+}
+
+.open-label, .completed-label {
+    width: 100px;
+    text-align: left;
+    margin-left: -10px;
+}
+
+.todo-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
 }
 
 .todo-item-footer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 5px;
-}
-
-.todo-date, .todo-name, .todo-importance {
-    flex: 1;
-    color: black;
-    font-weight: 300;
+    width: 100%;
 }
 
 .edit-btn {
@@ -118,9 +161,9 @@ body {
 }
 
 .todo-form {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -146,6 +189,23 @@ body {
     border: 1px solid #ccc;
     font-size: 14px;
     color: #050303;
+}
+
+#todo-importance {
+    margin-bottom: 20px;
+}
+
+label[for="todo-due-date"] {
+    margin-bottom: 5px;
+}
+
+#todo-due-date {
+    margin-top: 2px;
+    margin-bottom: 20px;
+}
+
+#todo-finished {
+    margin-top: 10px;
 }
 
 .todo-form .todo-status-group {
@@ -207,8 +267,8 @@ body.dark-theme .content-wrapper {
 body.dark-theme .action-btn,
 body.dark-theme .sort-btn,
 body.dark-theme .button {
-    background-color: #4c4c4c;
-    color: #f5f5f5;
+    background-color: #007bff;
+    color: white;
 }
 
 body.dark-theme input,
@@ -276,12 +336,47 @@ body.dark-theme .todo-form textarea {
 }
 
 .completed-label {
-    color: #007bff;
-    opacity: 1;
+    color: grey;
+    opacity: 0.5;
 }
 
 .completed-label input[type="checkbox"] {
     accent-color: #007bff;
     background-color: #007bff;
     border: 1px solid #007bff;
+}
+
+.sort-btn.active,
+.filter-btn.active {
+    background-color: #0056b3;
+    color: white;
+    font-weight: bold;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.todo-list {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
+.todo-status-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.todo-status-group label {
+    margin: 0;
+    margin-top: 10px;
+}
+
+.todo-status-group input[type="checkbox"] {
+    margin: 0;
 }

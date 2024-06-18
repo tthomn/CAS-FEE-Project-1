@@ -1,12 +1,3 @@
-export function validateImportance(value) {
-    const parsedValue = parseInt(value, 10);
-    if (parsedValue < 1 || parsedValue > 5) {
-        return { isValid: false, errorMessage: "Value must be less than or equal to 5." };
-    }
-    return { isValid: true, errorMessage: "" };
-}
-
-
 export function getRelativeDate(dateString) {
     if (!dateString) {
         return "Someday";
@@ -35,4 +26,17 @@ export function getRelativeDate(dateString) {
     } else {
         return rtf.format(daysDiff, 'day');
     }
+}
+
+export function compareDueDates(a, b, asc) {
+    const dateA = new Date(a.dueDate);
+    const dateB = new Date(b.dueDate);
+    const isDateAValid = !isNaN(dateA.getTime());
+    const isDateBValid = !isNaN(dateB.getTime());
+
+    if (!isDateAValid && !isDateBValid) return 0;
+    if (!isDateAValid) return asc ? 1 : -1;
+    if (!isDateBValid) return asc ? -1 : 1;
+
+    return asc ?  dateB - dateA :  dateA - dateB;
 }

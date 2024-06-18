@@ -10,5 +10,3 @@ export class Todo {
 }
 
 export default Todo;
-
-

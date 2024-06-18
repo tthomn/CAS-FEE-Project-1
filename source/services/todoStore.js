@@ -11,15 +11,10 @@ const dbPath = path.join(__dirname, '../data/todos.db');
 export class TodoStore {
     constructor(db) {
         this.db = db || new Datastore({ filename: dbPath, autoload: true });
-        this.checkDatabase();
     }
 
-    async checkDatabase() {
-        const count = await this.db.count({});
-    }
-
-    async add(duedate, title, description, importance, finished) {
-        return this.db.insert(new Todo(duedate, title, description, importance, finished));
+    async add(dueDate, title, description, importance, finished) {
+        return this.db.insert(new Todo(dueDate, title, description, importance, finished));
     }
 
     async delete(id) {
@@ -28,28 +23,16 @@ export class TodoStore {
     }
 
     async get(id) {
-        console.log(`Fetching todo with id: ${id}`);
         return this.db.findOne({ _id: id });
     }
 
     async update(id, todo) {
-        console.log(`Updating todo with id: ${id}`, todo);
-        const existingTodo = await this.get(id);
-        if (!existingTodo) {
-            throw new Error(`Todo with id ${id} not found`);
-        }
-        const updatedTodo = {
-            ...existingTodo,
-            ...todo
-        };
-        await this.db.update({ _id: id }, { $set: updatedTodo });
+        await this.db.update({ _id: id }, { $set: todo });
         return this.get(id);
     }
 
     async all() {
-        console.log('Fetching all todos');
-        const todos = await this.db.cfind({}).sort({ duedate: +1 }).exec();
-        console.log('Fetched todos:', todos);
+        const todos = await this.db.cfind({}).sort({ dueDate: 1 }).exec();
         return todos;
     }
 }

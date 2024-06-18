@@ -7,6 +7,6 @@ router.get('/', todoController.getTodos);
 router.post('/', todoController.createTodo);
 router.get('/:id', todoController.getTodo);
 router.delete('/:id', todoController.deleteTodo);
-router.put('/:id', todoController.updateTodo);
+router.patch('/:id', todoController.updateTodo);
 
 export const todoRoutes = router;

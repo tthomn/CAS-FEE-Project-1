@@ -20,34 +20,39 @@
                 <button id="toggle-mode-btn" class="action-btn align-right">Toggle Style</button>
             </nav>
             <nav id="toolbar-container" class="toolbar">
-                <button class="sort-btn">Name</button>
-                <button class="sort-btn">By Due Date</button>
-                <button class="sort-btn">By Creation Date</button>
-                <button class="sort-btn">By Importance</button>
-                <button class="sort-btn">Filter Completed</button>
+                <button class="sort-btn" data-sort="name">Name</button>
+                <button class="sort-btn" data-sort="dueDate">By Due Date</button>
+                <button class="sort-btn" data-sort="creationDate">By Creation Date</button>
+                <button class="sort-btn" data-sort="importance">Importance</button>
+                <button class="sort-btn" data-filter="completed">Filter Completed</button>
             </nav>
         </div>
         <main id="todo-list" class="todo-list" data-list>
             <!-- Template for tasks -->
             <script id="todo-template" type="text/x-handlebars-template">
-                <div class="todo-item {{#if finished}}completed{{/if}}">
-                    <div class="todo-item-header">
-                        <div class="todo-date">{{relativeDate duedate.text}}</div>
-                        <div class="todo-title">{{title}}</div>
-                        <div class="todo-importance">{{importance}}</div>
-                        <button id="{{id}}" class="edit-btn" data-list-btn-edit>Edit</button>
+                {{#each todos}}
+                    <div class="todo-item {{#if finished}}completed{{/if}}">
+                        <div class="todo-item-header">
+                            <div class="todo-date-status">
+                                <div class="todo-date">{{relativeDate dueDate}}</div>
+                                <label class="todo-status {{#if finished}}completed-label{{else}}open-label{{/if}}">
+                                    <input type="checkbox" disabled {{#if finished}}checked{{/if}} />
+                                    {{#if finished}}Completed{{else}}Open{{/if}}
+                                </label>
+                            </div>
+                            <div class="todo-title-description">
+                                <div class="todo-title">{{title}}</div>
+                                <div class="todo-description">
+                                    <p>{{description}}</p>
+                                </div>
+                            </div>
+                            <div class="todo-importance">{{{renderImportance '&#8623;' importance}}}</div>
+                            <button class="edit-btn" data-id="{{_id}}" data-list-btn-edit>Edit</button>
+                        </div>
                     </div>
-                    <div class="todo-item-footer">
-                        <label class="todo-status {{#if finished}}completed-label{{else}}open-label{{/if}}">
-                            <input id="{{id}}" type="checkbox" disabled {{#if finished}}checked{{/if}} />
-                            {{#if finished}}Completed{{else}}Open{{/if}}
-                        </label>
-                    </div>
-                    <div class="todo-description">
-                        <textarea readonly rows="4">{{description}}</textarea>
-                    </div>
-                </div>
+                {{/each}}
             </script>
+
         </main>
     </div>
     <div id="todo-form-view" class="hidden">
@@ -55,22 +60,23 @@
             <form id="todo-form">
                 <label for="todo-title">Title</label>
                 <input type="text" id="todo-title" name="title" required minlength="3" maxlength="32">
+                <div id="title-error" class="tooltip hidden"></div>
                 <label for="todo-importance">Importance</label>
                 <input type="number" id="todo-importance" name="importance" min="1" max="5" value="3" required>
                 <div id="importance-error" class="tooltip hidden"></div>
                 <label for="todo-due-date">Due Date</label>
-                <input type="date" id="todo-due-date" name="todo-due-date" required>
+                <input type="date" id="todo-due-date" name="dueDate">
                 <div class="form-group todo-status-group">
                     <label for="todo-finished">Finished</label>
                     <input type="checkbox" id="todo-finished" name="finished">
                 </div>
                 <label for="todo-description">Description</label>
-                <textarea placeholder="Describe your task" id="todo-description" name="description" rows="4" required maxlength="1024"></textarea>
+                <textarea placeholder="Describe your task" id="todo-description" name="description" rows="4" maxlength="1024"></textarea>
             </form>
             <nav class="flex">
                 <button id="save-todo-btn" class="button">Save</button>
-                <button id="update-overview-btn" class="button hidden">Update</button>
-                <button id="overview-todo-btn" class="button">Overview</button>
+                <button id="update-todo-btn" class="button hidden">Update</button>
+                <button id="cancel-todo-btn" class="button">Cancel</button>
             </nav>
         </div>
     </div>
