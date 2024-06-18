@@ -13,7 +13,7 @@
   "author": "Michael Gfeller",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.14.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -22,6 +22,11 @@
     "stylelint-config-standard": "^25.0.0"
   },
   "dependencies": {
-    "express": "^4.18.0"
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "express": "^4.19.2",
+    "handlebars": "^4.7.8",
+    "nedb-promise": "^2.0.1"
   }
 }

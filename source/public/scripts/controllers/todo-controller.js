@@ -151,7 +151,7 @@ const TodoController = {
             todosToRender = todosToRender.filter(todo => !todo.finished);
         }
 
-        const todosHtml = this.todosTemplate({ todos: todosToRender });
+        const todosHtml = this.todosTemplate({todos: todosToRender});
         this.todosContainer.innerHTML = todosHtml;
     },
 
@@ -190,7 +190,7 @@ const TodoController = {
             const todo = await todoService.getTodoById(todoId);
             if (todo) {
                 console.log('Fetched todo for editing:', todo);
-                this.currentTodoId = todoId;
+                this.currentTodoId = todo._id;
                 this.titleInput.value = todo.title || '';
                 this.importanceInput.value = todo.importance || 1;
                 this.dueDateInput.value = todo.dueDate ? todo.dueDate.split('T')[0] : '';
@@ -209,7 +209,6 @@ const TodoController = {
         }
     },
 
-
     async handleTodoSaveOrUpdate(event, action) {
         event.preventDefault();
 
@@ -221,7 +220,6 @@ const TodoController = {
         const existingTodo = this.todos.find(t => t._id === this.currentTodoId);
 
         const todo = {
-            id: action === 'save' ? new Date().getTime().toString() : this.currentTodoId,
             title: this.titleInput.value,
             importance: parseInt(this.importanceInput.value, 10),
             dueDate: this.dueDateInput.value || null,
@@ -232,14 +230,15 @@ const TodoController = {
 
         try {
             if (action === 'save') {
-                await todoService.createTodo(todo.title, todo.description, todo.importance, todo.dueDate, todo.finished);
+                const newTodo = await todoService.createTodo(todo.title, todo.description, todo.importance, todo.dueDate, todo.finished);
+                this.todos.push(newTodo);
             } else {
-                console.log('Updating todo with ID:', todo.id, 'with data:', todo);
-                await todoService.updateTodo(todo.id, todo);
+                console.log('Updating todo with ID:', this.currentTodoId, 'with data:', todo);
+                await todoService.updateTodo(this.currentTodoId, todo);
 
-                const index = this.todos.findIndex(t => t._id === todo.id);
+                const index = this.todos.findIndex(t => t._id === this.currentTodoId);
                 if (index !== -1) {
-                    this.todos[index] = { ...this.todos[index], ...todo };
+                    this.todos[index] = {...this.todos[index], ...todo};
                 }
             }
             await this.loadTodos();
@@ -250,7 +249,7 @@ const TodoController = {
         } catch (error) {
             console.error('Failed to save/update todo:', error);
         }
-    },
+    }
 };
 
-export default TodoController;
+    export default TodoController;
