@@ -15,8 +15,11 @@ const TodoController = {
         this.toggleModeBtn = document.getElementById('toggle-mode-btn');
         this.todosContainer = document.querySelector('[data-list]');
         this.addTodoBtn = document.getElementById('add-todo-btn');
-        this.saveTodoBtn = document.getElementById('save-todo-btn');
+        this.createTodoBtn = document.getElementById('create-todo-btn');
         this.updateTodoBtn = document.getElementById('update-todo-btn');
+        this.overviewCreateTodoBtn = document.getElementById('overview-create-todo-btn');
+        this.overviewUpdateTodoBtn = document.getElementById('overview-update-todo-btn');
+        this.cancelTodoBtn = document.getElementById('cancel-todo-btn');
         this.todoFormView = document.getElementById('todo-form-view');
         this.notesListView = document.getElementById('notes-list-view');
         this.todoForm = document.getElementById('todo-form');
@@ -25,7 +28,6 @@ const TodoController = {
         this.titleInput = document.getElementById('todo-title');
         this.descriptionInput = document.getElementById('todo-description');
         this.finishedCheckbox = document.getElementById('todo-finished');
-        this.cancelTodoBtn = document.getElementById('cancel-todo-btn');
         this.filterCompletedBtn = document.querySelector('.sort-btn[data-filter="completed"]');
         this.sortByDueDateBtn = document.querySelector('.sort-btn[data-sort="dueDate"]');
         this.sortByNameBtn = document.querySelector('.sort-btn[data-sort="name"]');
@@ -50,16 +52,17 @@ const TodoController = {
     setupEventListeners() {
         this.toggleModeBtn.addEventListener('click', this.toggleMode.bind(this));
         this.addTodoBtn.addEventListener('click', this.showAddTodoForm.bind(this));
-        this.saveTodoBtn.addEventListener('click', (event) => this.handleTodoSaveOrUpdate(event, 'save'));
+        this.createTodoBtn.addEventListener('click', (event) => this.handleTodoSaveOrUpdate(event, 'create'));
         this.updateTodoBtn.addEventListener('click', (event) => this.handleTodoSaveOrUpdate(event, 'update'));
-        this.todosContainer.addEventListener('click', this.handleEditButtonClick.bind(this));
+        this.overviewCreateTodoBtn.addEventListener('click', (event) => this.handleTodoSaveOrUpdate(event, 'createAndOverview'));
+        this.overviewUpdateTodoBtn.addEventListener('click', (event) => this.handleTodoSaveOrUpdate(event, 'updateAndOverview'));
         this.cancelTodoBtn.addEventListener('click', this.handleCancelTodo.bind(this));
         this.filterCompletedBtn.addEventListener('click', this.handleFilterCompleted.bind(this));
         this.sortByDueDateBtn.addEventListener('click', this.handleSortByDueDate.bind(this));
         this.sortByNameBtn.addEventListener('click', this.handleSortByName.bind(this));
         this.sortByCreationDateBtn.addEventListener('click', this.handleSortByCreationDate.bind(this));
         this.sortByImportanceBtn.addEventListener('click', this.handleSortByImportance.bind(this));
-        this.addTodoBtn.addEventListener('click', this.showAddTodoForm.bind(this));
+        this.todosContainer.addEventListener('click', this.handleEditButtonClick.bind(this));
     },
 
     async loadTodos() {
@@ -151,14 +154,16 @@ const TodoController = {
             todosToRender = todosToRender.filter(todo => !todo.finished);
         }
 
-        const todosHtml = this.todosTemplate({todos: todosToRender});
+        const todosHtml = this.todosTemplate({ todos: todosToRender });
         this.todosContainer.innerHTML = todosHtml;
     },
 
     showAddTodoForm() {
         this.todoForm.reset();
-        this.saveTodoBtn.style.display = 'block';
+        this.createTodoBtn.style.display = 'block';
+        this.overviewCreateTodoBtn.style.display = 'block';
         this.updateTodoBtn.style.display = 'none';
+        this.overviewUpdateTodoBtn.style.display = 'none';
         this.todoFormView.classList.remove('hidden');
         this.notesListView.classList.add('hidden');
         this.currentTodoId = null;
@@ -197,8 +202,10 @@ const TodoController = {
                 this.finishedCheckbox.checked = todo.finished || false;
                 this.descriptionInput.value = todo.description || '';
 
-                this.saveTodoBtn.style.display = 'none';
+                this.createTodoBtn.style.display = 'none';
+                this.overviewCreateTodoBtn.style.display = 'none';
                 this.updateTodoBtn.style.display = 'block';
+                this.overviewUpdateTodoBtn.style.display = 'block';
                 this.todoFormView.classList.remove('hidden');
                 this.notesListView.classList.add('hidden');
             } else {
@@ -225,31 +232,45 @@ const TodoController = {
             dueDate: this.dueDateInput.value || null,
             finished: document.getElementById('todo-finished').checked,
             description: this.descriptionInput.value,
-            createdDate: action === 'save' ? new Date().toISOString() : existingTodo ? existingTodo.createdDate : new Date().toISOString()
+            createdDate: action === 'create' ? new Date().toISOString() : existingTodo ? existingTodo.createdDate : new Date().toISOString()
         };
 
         try {
-            if (action === 'save') {
+            if (action === 'create' || action === 'createAndOverview') {
                 const newTodo = await todoService.createTodo(todo.title, todo.description, todo.importance, todo.dueDate, todo.finished);
                 this.todos.push(newTodo);
+
+                if (action === 'create') {
+                    // Stay on the form for further updates
+                    this.currentTodoId = newTodo._id;
+                    this.createTodoBtn.style.display = 'none';
+                    this.overviewCreateTodoBtn.style.display = 'none';
+                    this.updateTodoBtn.style.display = 'block';
+                    this.overviewUpdateTodoBtn.style.display = 'block';
+                }
             } else {
                 console.log('Updating todo with ID:', this.currentTodoId, 'with data:', todo);
                 await todoService.updateTodo(this.currentTodoId, todo);
 
                 const index = this.todos.findIndex(t => t._id === this.currentTodoId);
                 if (index !== -1) {
-                    this.todos[index] = {...this.todos[index], ...todo};
+                    this.todos[index] = { ...this.todos[index], ...todo };
                 }
             }
+
             await this.loadTodos();
             this.renderTodos();
-            this.todoFormView.classList.add('hidden');
-            this.notesListView.classList.remove('hidden');
-            this.currentTodoId = null;
+
+            if (action.endsWith('AndOverview')) {
+                this.todoFormView.classList.add('hidden');
+                this.notesListView.classList.remove('hidden');
+                this.currentTodoId = null;
+            }
+
         } catch (error) {
             console.error('Failed to save/update todo:', error);
         }
     }
 };
 
-    export default TodoController;
+export default TodoController;

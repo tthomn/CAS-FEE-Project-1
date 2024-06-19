@@ -73,10 +73,12 @@
                 <label for="todo-description">Description</label>
                 <textarea placeholder="Describe your task" id="todo-description" name="description" rows="4" maxlength="1024"></textarea>
             </form>
-            <nav class="flex">
-                <button id="save-todo-btn" class="button">Save</button>
+            <nav class="flex button-group">
+                <button id="create-todo-btn" class="button">Create</button>
+                <button id="overview-create-todo-btn" class="button">Create & Overview</button>
                 <button id="update-todo-btn" class="button hidden">Update</button>
-                <button id="cancel-todo-btn" class="button">Cancel</button>
+                <button id="overview-update-todo-btn" class="button hidden">Update & Overview</button>
+                <button id="cancel-todo-btn" class="button">Overview</button>
             </nav>
         </div>
     </div>
