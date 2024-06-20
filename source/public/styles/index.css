@@ -48,7 +48,7 @@ body {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 15px;
     cursor: pointer;
     margin-right: 10px;
     border-radius: 5px;
@@ -59,13 +59,6 @@ body {
 .action-btn.align-right,
 .button.align-right {
     margin-left: auto;
-}
-
-.action-btn:hover,
-.sort-btn:hover,
-.toolbar-btn:hover,
-.button:hover {
-    background-color: #0056b3;
 }
 
 .notes-list {
@@ -207,7 +200,8 @@ label[for="todo-due-date"] {
 
 .flex {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .todo-importance {
@@ -249,13 +243,6 @@ body.dark-theme .navbar,
 body.dark-theme .toolbar,
 body.dark-theme .content-wrapper {
     background-color: #3c3c3c;
-}
-
-body.dark-theme .action-btn,
-body.dark-theme .sort-btn,
-body.dark-theme .button {
-    background-color: #007bff;
-    color: white;
 }
 
 body.dark-theme input,
@@ -348,14 +335,8 @@ body.dark-theme .todo-form label {
     color: #050303;
 }
 
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
 .button-group {
-    gap: 12px;
+    gap: 8px;
 }
 
 .button {
@@ -363,8 +344,17 @@ body.dark-theme .todo-form label {
     padding: 8px 15px;
 }
 
-.hidden {
-    display: none;
+.action-btn:hover,
+.sort-btn:hover,
+.toolbar-btn:hover,
+.button:hover {
+    background-color: #0056b3;
 }
 
-/* End of file with newline */
+body.dark-theme .action-btn,
+body.dark-theme .sort-btn,
+body.dark-theme .toolbar-btn,
+body.dark-theme .button {
+    background-color: #007bff;
+    color: white;
+}

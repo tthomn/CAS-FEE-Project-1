@@ -5,6 +5,7 @@ export class TodoController {
         const todos = await todoStore.all();
         res.json(todos);
     }
+
     async getTodo(req, res) {
         const todo = await todoStore.get(req.params.id);
         res.json(todo);
@@ -21,8 +22,9 @@ export class TodoController {
         if (numRemoved === 0) {
             return res.status(404).json({ message: 'Todo not found' });
         }
-        res.json({ message: 'Todo successfully deleted', _id: req.params.id });
+       return res.json({ message: 'Todo successfully deleted', _id: req.params.id });
     }
+
     async updateTodo(req, res) {
         const existingTodo = await todoStore.get(req.params.id);
         if (!existingTodo) {
@@ -36,7 +38,7 @@ export class TodoController {
         };
 
         const result = await todoStore.update(req.params.id, updatedTodo);
-        res.json(result);
+        return res.json(result);
     }
 }
 

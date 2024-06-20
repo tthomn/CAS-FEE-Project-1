@@ -9,4 +9,4 @@ router.get('/:id', todoController.getTodo);
 router.delete('/:id', todoController.deleteTodo);
 router.patch('/:id', todoController.updateTodo);
 
-export const todoRoutes = router;
+export default router;

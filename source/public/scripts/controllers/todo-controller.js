@@ -1,3 +1,4 @@
+/* global Handlebars */
 import { todoService } from '../services/todo-service.js';
 import { getRelativeDate } from '../utils.js';
 
@@ -36,7 +37,7 @@ const TodoController = {
     },
 
     registerHandlebarsHelpers() {
-        Handlebars.registerHelper('renderImportance', function (text, count) {
+        Handlebars.registerHelper('renderImportance', (text, count) => {
             let result = '';
             for (let i = 0; i < count; i++) {
                 result += text;
@@ -44,9 +45,7 @@ const TodoController = {
             return new Handlebars.SafeString(result);
         });
 
-        Handlebars.registerHelper('relativeDate', function (dateString) {
-            return getRelativeDate(dateString);
-        });
+        Handlebars.registerHelper('relativeDate',  (dateString) => getRelativeDate(dateString));
     },
 
     setupEventListeners() {
@@ -125,13 +124,13 @@ const TodoController = {
             sortByCreationDateBtn: 'By Creation Date'
         };
 
-        for (const button in buttonTextMap) {
+        Object.entries(buttonTextMap).forEach(([button, text]) => {
             if (this[button] === activeButton) {
-                this[button].innerHTML = `${buttonTextMap[button]} ${sortDirectionArrow}`;
+                this[button].innerHTML = `${text} ${sortDirectionArrow}`;
             } else {
-                this[button].innerHTML = buttonTextMap[button];
+                this[button].innerHTML = text;
             }
-        }
+        });
 
         this.updateFilterButton();
     },
@@ -226,13 +225,15 @@ const TodoController = {
 
         const existingTodo = this.todos.find(t => t._id === this.currentTodoId);
 
+        const createdDate = action === 'create' ? new Date().toISOString() : (existingTodo && existingTodo.createdDate) || new Date().toISOString();
+
         const todo = {
             title: this.titleInput.value,
             importance: parseInt(this.importanceInput.value, 10),
             dueDate: this.dueDateInput.value || null,
             finished: document.getElementById('todo-finished').checked,
             description: this.descriptionInput.value,
-            createdDate: action === 'create' ? new Date().toISOString() : existingTodo ? existingTodo.createdDate : new Date().toISOString()
+            createdDate
         };
 
         try {
@@ -241,7 +242,6 @@ const TodoController = {
                 this.todos.push(newTodo);
 
                 if (action === 'create') {
-                    // Stay on the form for further updates
                     this.currentTodoId = newTodo._id;
                     this.createTodoBtn.style.display = 'none';
                     this.overviewCreateTodoBtn.style.display = 'none';

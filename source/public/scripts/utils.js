@@ -4,7 +4,7 @@ export function getRelativeDate(dateString) {
     }
 
     const inputDate = new Date(dateString);
-    if (isNaN(inputDate.getTime())) {
+    if (Number.isNaN(inputDate.getTime())) {
         return "Someday";
     }
 
@@ -19,24 +19,25 @@ export function getRelativeDate(dateString) {
 
     if (daysDiff === 0) {
         return "Today";
-    } else if (daysDiff === 1) {
-        return "Tomorrow";
-    } else if (daysDiff === -1) {
-        return "Yesterday";
-    } else {
-        return rtf.format(daysDiff, 'day');
     }
+    if (daysDiff === 1) {
+        return "Tomorrow";
+    }
+    if (daysDiff === -1) {
+        return "Yesterday";
+    }
+    return rtf.format(daysDiff, 'day');
 }
 
 export function compareDueDates(a, b, asc) {
     const dateA = new Date(a.dueDate);
     const dateB = new Date(b.dueDate);
-    const isDateAValid = !isNaN(dateA.getTime());
-    const isDateBValid = !isNaN(dateB.getTime());
+    const isDateAValid = !Number.isNaN(dateA.getTime());
+    const isDateBValid = !Number.isNaN(dateB.getTime());
 
     if (!isDateAValid && !isDateBValid) return 0;
     if (!isDateAValid) return asc ? 1 : -1;
     if (!isDateBValid) return asc ? -1 : 1;
 
-    return asc ?  dateB - dateA :  dateA - dateB;
+    return asc ? dateB - dateA : dateA - dateB;
 }

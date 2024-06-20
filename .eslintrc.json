@@ -9,7 +9,7 @@
     "prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2022,
     "sourceType": "module"
   },
   "rules": {
@@ -18,6 +18,9 @@
     "import/extensions": "off",
     "object-curly-newline": "off",
     "object-curly-spacing": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "no-console": "off"
   }
 }

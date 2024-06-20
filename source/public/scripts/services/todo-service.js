@@ -1,4 +1,4 @@
-import { httpService } from './http-service.js';
+import  httpService  from './http-service.js';
 import { compareDueDates } from '../utils.js';
 
 export class TodoService {
@@ -45,11 +45,11 @@ export class TodoService {
     }
 
     async applySortOrder(todos) {
-        todos = this.filterFinishedNotes(todos);
-        if (this.sortOrderMethod) {
-            todos = this[this.sortOrderMethod](todos);
+        let filteredTodos = this.filterFinishedNotes(todos);
+         if (this.sortOrderMethod) {
+            filteredTodos = this[this.sortOrderMethod](filteredTodos);
         }
-        return todos;
+        return filteredTodos;
     }
 
     sortByDueDate(todos) {
