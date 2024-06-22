@@ -119,14 +119,14 @@ const TodoController = {
 
         const buttonTextMap = {
             sortByDueDateBtn: 'By Due Date',
-            sortByNameBtn: 'Name',
-            sortByImportanceBtn: 'Importance',
+            sortByNameBtn: 'By Name',
+            sortByImportanceBtn: 'By Importance',
             sortByCreationDateBtn: 'By Creation Date'
         };
 
         Object.entries(buttonTextMap).forEach(([button, text]) => {
             if (this[button] === activeButton) {
-                this[button].innerHTML = `${text} ${sortDirectionArrow}`;
+                this[button].innerHTML = `${text.slice(3)} ${sortDirectionArrow}`;
             } else {
                 this[button].innerHTML = text;
             }
