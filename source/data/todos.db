@@ -1,14 +1,6 @@
-{"dueDate":"2024-06-23","title":"First task","description":"First task description","importance":5,"finished":true,"createdDate":"2024-06-19T17:11:40.140Z","_id":"2eaU8BP4ZqADtRfD"}
-{"dueDate":null,"title":"Second task","description":"AAA SECOND AAAA","importance":1,"finished":false,"createdDate":"2024-06-19T17:12:21.493Z","_id":"MKpmLzHiAsHwHnmG"}
-{"dueDate":null,"title":"fsdfsf","description":"sffs","importance":3,"finished":false,"createdDate":"2024-06-19T21:28:04.500Z","_id":"SohW9u4SAnvx25Vz"}
-{"dueDate":null,"title":"hhh","description":"hhh","importance":3,"finished":false,"createdDate":"2024-06-20T06:29:16.362Z","_id":"Uhdat3nk9LIT2glh"}
-{"dueDate":null,"title":"hhh","description":"hhh","importance":3,"finished":false,"createdDate":"2024-06-20T06:29:16.362Z","_id":"Uhdat3nk9LIT2glh"}
-{"dueDate":null,"title":"Second task","description":"AAA SECOND AAAA","importance":5,"finished":false,"createdDate":"2024-06-19T17:12:21.493Z","_id":"MKpmLzHiAsHwHnmG"}
-{"dueDate":null,"title":"Second task","description":"AAA SECOND AAAA","importance":5,"finished":false,"createdDate":"2024-06-19T17:12:21.493Z","_id":"MKpmLzHiAsHwHnmG"}
-{"dueDate":null,"title":"fsdfsf","description":"sffsjhhh","importance":3,"finished":false,"createdDate":"2024-06-19T21:28:04.500Z","_id":"SohW9u4SAnvx25Vz"}
-{"dueDate":null,"title":"Second task","description":"AAA SECOND AAAA","importance":5,"finished":false,"createdDate":"2024-06-19T17:12:21.493Z","_id":"MKpmLzHiAsHwHnmG"}
-{"dueDate":null,"title":"Second task","description":"AAA SECOND AAAA","importance":5,"finished":true,"createdDate":"2024-06-19T17:12:21.493Z","_id":"MKpmLzHiAsHwHnmG"}
-{"dueDate":null,"title":"Second task","description":"AAA SECOND AAAA","importance":5,"finished":true,"createdDate":"2024-06-19T17:12:21.493Z","_id":"MKpmLzHiAsHwHnmG"}
-{"dueDate":null,"title":"hhh","description":"hhh","importance":3,"finished":true,"createdDate":"2024-06-20T06:29:16.362Z","_id":"Uhdat3nk9LIT2glh"}
-{"dueDate":null,"title":"fsdfsf","description":"sffsjhhh","importance":3,"finished":false,"createdDate":"2024-06-19T21:28:04.500Z","_id":"SohW9u4SAnvx25Vz"}
-{"dueDate":null,"title":"fsdfsf","description":"sffsjhhh","importance":3,"finished":true,"createdDate":"2024-06-19T21:28:04.500Z","_id":"SohW9u4SAnvx25Vz"}
+{"dueDate":"2024-06-22","title":"Shopping","description":"Groceries for the week.","importance":5,"finished":true,"createdDate":"2024-06-17T21:44:16.853Z","_id":"QqCJsIOOFaQqjIlV","id":"QqCJsIOOFaQqjIlV"}
+{"dueDate":"2024-08-31","title":"Book flight","description":"Book a flight for the сhristmas holidays.\n","importance":2,"finished":false,"createdDate":"2024-06-17T21:48:30.874Z","_id":"UGet7CNC94uQd8ZZ"}
+{"dueDate":"2024-06-23","title":"Dentist","description":"Dental check.","importance":5,"finished":false,"createdDate":"2024-06-17T21:56:28.969Z","_id":"Y6x2vkopJlvSCKNI","id":"Y6x2vkopJlvSCKNI"}
+{"dueDate":"2024-06-15","title":"Walk the dog","description":"Walk the dog at 19:00.","importance":3,"finished":true,"createdDate":"2024-06-17T21:55:17.259Z","_id":"hxtKdWVtHgg7L4uI","id":"hxtKdWVtHgg7L4uI"}
+{"dueDate":"2024-06-30","title":"Team meeting","description":"Weekly meeting with the team.\n","importance":3,"finished":false,"createdDate":"2024-06-17T21:56:17.947Z","_id":"nlnENBtMMbEf4Z9K"}
+{"dueDate":"2024-06-21","title":"Exercises","description":"Morning exercises.","importance":5,"finished":true,"createdDate":"2024-06-17T21:57:12.275Z","_id":"qGlaRY0jg6PHMYFs","id":"qGlaRY0jg6PHMYFs"}
