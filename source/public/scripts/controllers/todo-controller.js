@@ -34,6 +34,7 @@ const TodoController = {
         this.sortByNameBtn = document.querySelector('.sort-btn[data-sort="name"]');
         this.sortByCreationDateBtn = document.querySelector('.sort-btn[data-sort="creationDate"]');
         this.sortByImportanceBtn = document.querySelector('.sort-btn[data-sort="importance"]');
+        this.noTodosMessage = document.getElementById('no-todos-message');
     },
 
     registerHandlebarsHelpers() {
@@ -155,6 +156,12 @@ const TodoController = {
 
         const todosHtml = this.todosTemplate({ todos: todosToRender });
         this.todosContainer.innerHTML = todosHtml;
+
+        if (todosToRender.length === 0) {
+            this.noTodosMessage.classList.remove('hidden');
+        } else {
+            this.noTodosMessage.classList.add('hidden');
+        }
     },
 
     showAddTodoForm() {
@@ -180,6 +187,7 @@ const TodoController = {
         await this.loadTodos();
         this.renderTodos();
         this.updateFilterButton();
+        this.checkNoTodosMessage();
     },
 
     handleEditButtonClick(event) {
@@ -269,6 +277,16 @@ const TodoController = {
 
         } catch (error) {
             console.error('Failed to save/update todo:', error);
+        }
+    },
+
+    checkNoTodosMessage() {
+        const todosToRender = this.todos.filter(todo => todoService.isFilterShowFinishedActive ? todo.finished : !todo.finished);
+
+        if (todosToRender.length === 0) {
+            this.noTodosMessage.classList.remove('hidden');
+        } else {
+            this.noTodosMessage.classList.add('hidden');
         }
     }
 };
