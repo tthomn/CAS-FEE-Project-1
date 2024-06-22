@@ -400,3 +400,18 @@ body.dark-theme .todo-importance {
     color: white;
     font-weight: bold;
 }
+
+#no-todos-message {
+    background-color: #f5eeea;
+    color: #b67241;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+body.dark-theme #no-todos-message {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #fff;
+}
